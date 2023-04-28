@@ -1211,4 +1211,22 @@ mod tests {
 
         Ok(())
     }
+
+    #[test]
+    fn test_unchecked_relay_url_without_trailing_slash() -> Result<()> {
+        let relay = "wss://relay.damus.io";
+        let relay_url = Url::from_str(relay)?;
+
+        println!("{}", relay_url.to_string());
+
+        let unchecked_relay_url = UncheckedUrl::from(relay_url.clone());
+
+        assert_eq!(unchecked_relay_url, UncheckedUrl::from_str(relay)?);
+
+        assert_eq!(Url::try_from(unchecked_relay_url.clone())?, relay_url);
+
+        assert_eq!(relay, unchecked_relay_url.to_string());
+
+        Ok(())
+    }
 }

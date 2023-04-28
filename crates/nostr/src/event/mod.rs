@@ -229,4 +229,11 @@ mod tests {
         assert!(!&event.is_expired());
         Ok(())
     }
+
+    #[test]
+    fn test_event_with_relay_tag_not_having_trailing_slash() {
+        let sample_event = r#"{"content":"","created_at":1682667878,"id":"3ece4a62659e91c70465cd8b2c1d0c87b5c8ae1320b75bceef56d0b53cef910a","kind":22242,"pubkey":"8f0a4c451af7940f055469228bbf5247c57ecec2867a4f35a5e1fa5056eddf8a","sig":"0a40073145aa3364b3cd780c7afd2a7ed90fdc7e63ea9815848cb7e9e09b7c628bc68fa4cff8dc77428f3155c99baf44fc0060bb1af51d50b7266141e2c62e90","tags":[["relay","wss://grove-ctrl-coding-casual.trycloudflare.com"],["challenge","7M26dMbCnGrV3vKCkHNQeFII0dagXyhwJvrbdG0dhuyhvAQiiH3nwK0FplTrxppc"]]}"#;
+        let ev_ser = Event::from_json(sample_event).unwrap();
+        assert_eq!(ev_ser.as_json(), sample_event);
+    }
 }
